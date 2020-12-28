@@ -1,18 +1,39 @@
 var express = require('express');
 const MongoClient = require('mongodb').MongoClient
 var router = express.Router();
-const {PASS} = require('../credentials');
+const { PASS } = require('../credentials');
 
 const db_name = 'products';
 
 //Set up default mongoose connection
 const uri = `mongodb+srv://admin:${PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-  if(err) console.log(err);
-  const collection = client.db("test").collection("devices");
+  if (err) console.log(err);
+  const collection = client.db(db_name).collection(db_name);
   // perform actions on the collection object
-  client.close();
+
+
+  /* GET products listing. */
+  router.get('/', function (req, res, next) {
+    console.log(collection);
+    collection.find({}).toArray(function (err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(result);
+      }
+    })
+  });
+
+  /* POST product */
+  router.post('/', async function (req, res, next) {
+    const data = req.body;
+    collection.insertOne(data).then(result => {
+      console.log(result)
+      res.json({ "status": "success" });
+    }).catch(error => { res.json({ "status": "success" }); return console.error(error); })
+  });
 });
 
 
@@ -38,14 +59,5 @@ const productsTemp = [
     price: 43.2
   },
 ];
-
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.json(productsTemp);
-});
-
-router.post('/', function (req, res, next) {
-
-});
 
 module.exports = router;
