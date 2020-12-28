@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var indexRouter = require('./index');
-var usersRouter = require('./users');
+var productsRouter = require('./products');
 
 router.use('/', indexRouter);
-router.use('/users', usersRouter);
+router.use('/products', productsRouter);
 
 module.exports = router;

@@ -12,6 +12,7 @@
 /coverage
 
 # production
+credentials.js
 /build
 /dist
 .deployment
