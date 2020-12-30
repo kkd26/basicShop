@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .product {
     position: relative;
     display: flex;
@@ -8,6 +12,11 @@
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
+}
+
+form.product > * {
+    width: 50%;
+    margin-top: 5px;
 }
 
 .delete-button {

@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient
 
 const { PASS } = require('../credentials');
 
-const db_name = 'products';
+const db_name = 'database';
 const uri = `mongodb+srv://admin:${PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = client.connect().then(suc => client.db(db_name));
