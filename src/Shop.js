@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { getAllProducts, addProduct } from './Api';
+import { getAllProducts, addProduct, deleteProduct } from './Api';
 import './Shop.scss';
 import Product from './Product';
-import axios from 'axios';
 
 
 class Shop extends Component {
@@ -15,6 +14,7 @@ class Shop extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   async componentDidMount() {
@@ -24,6 +24,11 @@ class Shop extends Component {
   async updateProducts() {
     const allProducts = await getAllProducts();
     this.setState({ allProducts: allProducts });
+  }
+
+  async deleteProduct(id) {
+    await deleteProduct(id);
+    this.updateProducts();
   }
 
   handleChange(event) {
@@ -51,18 +56,20 @@ class Shop extends Component {
   render() {
     var { allProducts } = this.state;
     return (
-      <div className="products-container">
-        {allProducts.map(p => <Product key={p.id} id={p.id} name={p.name} price={p.price} />)}
+      <>
+        <div className="products-container">
+          {allProducts.map(p => <Product key={p._id} id={p._id} name={p.name} price={p.price} deleteProduct={this.deleteProduct}/>)}
+        </div>
         <form className="product" onSubmit={this.handleSubmit}>
           <label htmlFor="add-name">Name:</label>
           <input id="add-name" name="add-name" type="text" onChange={this.handleChange} />
           <label htmlFor="add-price">Price:</label>
           <input id="add-price" name="add-price" type="number" step=".01" onChange={this.handleChange} />
           {/* <label htmlFor="add-image">Image:</label>
-          <input id="add-image" name="add-image" type="file" onChange={this.handleChange.bind(this)} /> */}
+      <input id="add-image" name="add-image" type="file" onChange={this.handleChange.bind(this)} /> */}
           <input id="add-submit" type="submit" value="Submit" />
         </form>
-      </div>
+      </>
     );
   }
 }

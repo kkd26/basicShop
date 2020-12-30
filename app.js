@@ -1,12 +1,14 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const http = require('http');
 
-var api = require('./routes/api');
-var main = require('./routes/main');
-var app = express();
+const api = require('./routes/api');
+const main = require('./routes/main');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,12 +24,12 @@ app.use('/', main);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -37,4 +39,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) { return val; }
+  if (port >= 0) { return port; }
+  return false;
+}
+
+var port = normalizePort(process.env.PORT || '80');
+app.set('port', port);
+
+var server = http.createServer(app);
+
+server.listen(port);

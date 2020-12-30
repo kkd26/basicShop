@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost/api'
+const API_URL = '/api'
 
 export const getAllProducts = async () => {
     const res = await axios.get(API_URL + '/products');
@@ -9,5 +9,9 @@ export const getAllProducts = async () => {
 }
 
 export const addProduct = async (product) => {
-    axios.post(API_URL + '/products', product);
+    await axios.post(API_URL + '/products', product);
+}
+
+export const deleteProduct = async (id) => {
+    await axios.delete(API_URL + `/products/${id}`);
 }

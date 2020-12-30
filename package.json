@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "npx webpack -w --mode development",
-    "start": "node ./bin/www.js",
-    "start:dev": "npx webpack-dev-server",
-    "react:start": "react-scripts start"
+    "build:dev": "npx webpack -w --mode development",
+    "build": "npx webpack",
+    "start": "node app.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -20,6 +19,7 @@
     "pug": "2.0.0-beta11",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.1.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },

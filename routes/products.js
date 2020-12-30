@@ -1,63 +1,51 @@
 var express = require('express');
-const MongoClient = require('mongodb').MongoClient
+const mongo = require('mongodb');
 var router = express.Router();
-const { PASS } = require('../credentials');
-
-const db_name = 'products';
-
+const { getCollectionByName } = require('./db');
 //Set up default mongoose connection
-const uri = `mongodb+srv://admin:${PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  if (err) console.log(err);
-  const collection = client.db(db_name).collection(db_name);
-  // perform actions on the collection object
 
+// perform actions on the collection object
+const products = getCollectionByName('products');
 
-  /* GET products listing. */
-  router.get('/', function (req, res, next) {
-    console.log(collection);
-    collection.find({}).toArray(function (err, result) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(result);
-      }
-    })
-  });
-
-  /* POST product */
-  router.post('/', async function (req, res, next) {
-    const data = req.body;
-    collection.insertOne(data).then(result => {
-      console.log(result)
-      res.json({ "status": "success" });
-    }).catch(error => { res.json({ "status": "success" }); return console.error(error); })
-  });
+/* GET products listing. */
+router.get('/', async function (req, res, next) {
+  (await products).find({}).toArray(function (err, result) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(result);
+    }
+  })
 });
 
+router.get('/:id', async function (req, res, next) {
+  const id = req.params.id;
+  try {
+    (await products).findOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
+      res.json(result);
+    })
+  } catch (err) {
+    res.status(404).json({ message: "incorrect id" });
+  }
+});
 
-const productsTemp = [
-  {
-    id: 1,
-    name: "product1",
-    price: 13.2
-  },
-  {
-    id: 2,
-    name: "product2",
-    price: 23.2
-  },
-  {
-    id: 3,
-    name: "product3",
-    price: 33.2
-  },
-  {
-    id: 4,
-    name: "product4",
-    price: 43.2
-  },
-];
+/* POST product */
+router.post('/', async function (req, res, next) {
+  const data = req.body;
+  (await products).insertOne(data).then(result => {
+    res.status(201).json({ "message": "Product was created" });
+  }).catch(error => { res.json({ "message": "Failure to create a product" }); return console.error(error); })
+});
+
+router.delete('/:id', async function (req, res, next) {
+  const id = req.params.id;
+  try {
+    (await products).deleteOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
+      res.json({ message: "object deleted" });
+    })
+  } catch (err) {
+    res.status(404).json({ message: "incorrect id" });
+  }
+});
 
 module.exports = router;
