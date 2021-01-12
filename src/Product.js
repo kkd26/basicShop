@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { FaTimes } from "react-icons/fa";
-import { deleteProduct } from './Api';
 import './Product.scss';
 
 class Product extends Component{
@@ -9,12 +8,14 @@ class Product extends Component{
     }
 
     render(){
-        const {id, name, price} = this.props;
+        const {id, name, price, categories} = this.props;
+        console.log(categories);
         return (
             <div className="product">
                 <FaTimes className="delete-button" onClick={() => this.props.deleteProduct(id)}/>  
                 <div className="name">{name}</div>
-                <div className="price">{price}</div>
+                <div className="price">PRICE: {price ?? "NaN"}</div>
+                [{categories.join(',')}]
             </div>
         );
     }

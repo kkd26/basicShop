@@ -20,6 +20,15 @@ export const getAllCategories = async () => {
     return res.data;
 }
 
+export const getAllGroups = async () => {
+    const res = await axios.get(API_URL + '/groups');
+    return res.data;
+}
+
 export const addCategory = async (category) => {
     await axios.post(API_URL + '/categories', category);
+}
+
+export const addGroup = async (group) => {
+    await axios.post(API_URL + '/groups', group);
 } 
