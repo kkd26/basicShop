@@ -1,3 +1,5 @@
+#!/home/kkd26/.nvm/versions/node/v14.15.3/bin/node
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -18,10 +20,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'dist')));
 
+// set routes and staic folder
 app.use('/', main);
 app.use('/api', api);
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -50,5 +53,4 @@ var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 var server = http.createServer(app);
-
 server.listen(port);

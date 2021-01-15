@@ -9,7 +9,6 @@ class Product extends Component{
 
     render(){
         const {id, name, price, categories} = this.props;
-        console.log(categories);
         return (
             <div className="product">
                 <FaTimes className="delete-button" onClick={() => this.props.deleteProduct(id)}/>  

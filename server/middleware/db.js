@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 
-const { PASS } = require('../credentials');
+const { PASS } = require('./credentials');
 
 const db_name = 'database';
 const uri = `mongodb+srv://admin:${PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;

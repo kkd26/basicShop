@@ -1,21 +1,17 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require("html-webpack-plugin")
+const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
   entry: {
-    // server: './bin/www.js',
-    index: ["@babel/polyfill", './src/index.js']
+    index: './src/index.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].js'
   },
-  devServer: {
-    contentBase: path.join(__dirname, "dist"),
-    port: 9000
-  },
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -49,7 +45,10 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: 'public/index.html',
-      favicon: 'public/favicon.ico'
+      favicon: 'public/my_favicon.ico'
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+  },
 }

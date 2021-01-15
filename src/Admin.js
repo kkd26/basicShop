@@ -46,7 +46,6 @@ class Admin extends Component {
   }
 
   handleSelect(options, meta) {
-    console.log(meta, options);
     const name = meta.name;
     const data = name === "group" ? options.value : options ? options.map(e => e.value) : [];
     this.setState({

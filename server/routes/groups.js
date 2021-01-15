@@ -1,15 +1,15 @@
 var express = require('express');
 const mongo = require('mongodb');
 var router = express.Router();
-const { getCollectionByName } = require('./db');
+const { getCollectionByName } = require('../middleware/db');
 //Set up default mongoose connection
 
 // perform actions on the collection object
-const categories = getCollectionByName('categories');
+const groups = getCollectionByName('groups');
 
-/* GET categories listing. */
+/* GET groups listing. */
 router.get('/', async function (req, res, next) {
-  (await categories).find({}).toArray(function (err, result) {
+  (await groups).find({}).toArray(function (err, result) {
     if (err) {
       res.send(err);
     } else {
@@ -21,7 +21,7 @@ router.get('/', async function (req, res, next) {
 router.get('/:id', async function (req, res, next) {
   const id = req.params.id;
   try {
-    (await categories).findOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
+    (await groups).findOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
       res.json(result);
     })
   } catch (err) {
@@ -29,19 +29,18 @@ router.get('/:id', async function (req, res, next) {
   }
 });
 
-/* POST category */
+/* POST group */
 router.post('/', async function (req, res, next) {
   const data = req.body;
-  console.log(data);
-  (await categories).insertOne(data).then(result => {
-    res.status(201).json({ "message": "category was created" });
-  }).catch(error => { res.json({ "message": "Failure to create a category" }); return console.error(error); })
+  (await groups).insertOne(data).then(result => {
+    res.status(201).json({ "message": "group was created" });
+  }).catch(error => { res.json({ "message": "Failure to create a group" }); return console.error(error); })
 });
 
 router.delete('/:id', async function (req, res, next) {
   const id = req.params.id;
   try {
-    (await categories).deleteOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
+    (await groups).deleteOne({ _id: new mongo.ObjectId(id) }).then(function (result) {
       res.json({ message: "object deleted" });
     })
   } catch (err) {

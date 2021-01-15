@@ -13,6 +13,8 @@
 
 # production
 credentials.js
+web.sock
+
 /build
 /dist
 .deployment

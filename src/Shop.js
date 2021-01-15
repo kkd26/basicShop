@@ -28,7 +28,6 @@ class Shop extends Component {
     const allCategories = await getAllCategories();
     const allGroups = await getAllGroups();
     var checked = this.state.checkedCategories;
-    console.log(checked, this.state.checkedCategories);
     this.setState(
       { allProducts: allProducts, allCategories: allCategories, allGroups: allGroups, checkedCategories: checked },
       () => this.filterProducts(checked)
@@ -36,7 +35,6 @@ class Shop extends Component {
   }
 
   filterProducts(arr) {
-    console.log(arr, this.state.allProducts);
     var filteredProducts = this.state.allProducts.filter(prod => {
       const categories = prod.categories ? prod.categories : [];
       return arr.some(item => categories.indexOf(item) !== -1);
@@ -59,7 +57,6 @@ class Shop extends Component {
 
   groupProductsById(products, groupId) {
     return products.filter(product => {
-      console.log(product);
       return product.group === groupId;
     });
   }

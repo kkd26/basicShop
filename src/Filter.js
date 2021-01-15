@@ -22,7 +22,6 @@ class Filter extends Component {
           if (element) arr.push(id);
         }
       }
-      console.log(arr);
       this.filterProducts(arr);
     });
   };

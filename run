@@ -1,0 +1,8 @@
+#!/bin/bash -e
+USER="$(whoami)"
+[ -e "/home/kkd26/basicShop/server/web.sock" ] && rm "/home/kkd26/basicShop/server/web.sock"
+umask 0
+
+. ~/.nvm/nvm.sh
+NODE_ENV=production PORT="/home/kkd26/basicShop/server/web.sock" \
+    exec ~/basicShop/server/app.js
