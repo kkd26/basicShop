@@ -21,12 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// set routes and staic folder
+// set routes and static folder
 app.use('/', main);
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, '../dist')));
 
-// catch 404 and forward to error handler
+// // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });

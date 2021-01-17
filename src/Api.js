@@ -32,3 +32,7 @@ export const addCategory = async (category) => {
 export const addGroup = async (group) => {
     await axios.post(API_URL + '/groups', group);
 } 
+
+export const signUp = async (user) => {
+    await axios.post(API_URL + '/user', user);
+}

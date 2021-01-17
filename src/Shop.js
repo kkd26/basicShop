@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getAllProducts, getAllCategories, getAllGroups, deleteProduct } from './Api';
 import './Shop.scss';
 import Admin from './Admin';
+import LoginPanel from './LoginPanel';
 import Filter from './Filter';
 import ProductGroup from './ProductGroup';
 
@@ -74,6 +75,7 @@ class Shop extends Component {
 
           {allGroups.map(group =>
             <ProductGroup
+              key={group._id}
               products={this.groupProductsById(filteredProducts, group._id)}
               groupName={group.name}
               categoriesNamesFromIds={this.categoriesNamesFromIds.bind(this)}
@@ -81,6 +83,8 @@ class Shop extends Component {
             />)
           }
         </div>
+
+        <LoginPanel style={{width: "200px"}}/>
 
         <Admin
           allCategories={allCategories}

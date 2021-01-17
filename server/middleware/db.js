@@ -1,14 +1,18 @@
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose');
 
-const { PASS } = require('./credentials');
+const { DB_PASS, DB_LOGIN } = require('./credentials');
 
 const db_name = 'database';
-const uri = `mongodb+srv://admin:${PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-var db = client.connect().then(suc => client.db(db_name));
+const db_uri = `mongodb+srv://${DB_LOGIN}:${DB_PASS}@shopdb.prb7q.mongodb.net/${db_name}?retryWrites=true&w=majority`;
+mongoose.connect(db_uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const getCollectionByName = async name => {
-    return (await db).collection(name);
+/**
+ * Returns mongoose model by name
+ * @param {String} name model name
+ * @return {mongoose.Model}
+ */
+const getModelByName = name => {
+    return require(`../models/${name}`);
 }
 
-module.exports.getCollectionByName = getCollectionByName;
+module.exports.getModelByName = getModelByName;
