@@ -13,6 +13,7 @@
 
 # production
 credentials.js
+.env
 web.sock
 
 /build

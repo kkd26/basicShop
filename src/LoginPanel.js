@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { signUp } from './Api';
+import { signIn, signUp, signOut } from './Api';
 import { TextField, Button } from '@material-ui/core';
 import './LoginPanel.scss';
 
@@ -10,6 +10,7 @@ class LoginPanel extends Component {
     super(props);
 
     this.state = {};
+    this.initialState = this.state;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,7 +19,12 @@ class LoginPanel extends Component {
     const target = e.target;
     const value = target.value;
     const name = target.name;
-    this.setState({ [name]: value });
+    this.setState({
+      user: {
+        ...this.state.user,
+        [name]: value
+      }
+    });
   }
 
   async handleSubmit(e) {
@@ -26,17 +32,17 @@ class LoginPanel extends Component {
     const target = e.target;
     target.reset();
 
-    await signUp(this.state);
-    this.setState({});
+    await signIn(this.state.user);
+    this.setState({ user: {} });
   }
 
   render() {
-    
     return (
       <form className="login-panel" style={this.props.style} onSubmit={this.handleSubmit}>
         <TextField name="username" label="Username" onChange={this.handleChange} />
         <TextField name="password" type="password" label="Password" onChange={this.handleChange} />
-        <Button type="submit" variant="contained" color="primary">Sign up</Button>
+        <Button type="submit" variant="contained" color="primary">Sign in</Button>
+        <Button variant="contained" color="primary" onClick={signOut}>Sign out</Button>
       </form >
     );
   }
