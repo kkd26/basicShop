@@ -1,31 +1,31 @@
 .product-group {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border: solid black 2px;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px;
-    grid-column: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  grid-column: 2;
 }
 
 .products-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .filter {
-    border: solid black 2px;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px;
-    grid-column: 1;
-    grid-row: 1/9999;
+  border: solid black 2px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  grid-column: 1;
+  grid-row: 1/9999;
 }
 
 .two-columns {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-rows: auto;
-    grid-template-columns: max-content;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-rows: auto;
+  grid-template-columns: max-content;
 }

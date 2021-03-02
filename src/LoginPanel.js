@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { signIn, signUp, signOut } from './Api';
-import { TextField, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import './LoginPanel.scss';
 
 const SIGN_UP = "Sign up", SIGN_IN = "Sign in";

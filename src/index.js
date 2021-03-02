@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import Shop from './Shop';
 import reportWebVitals from './reportWebVitals';
+import { addAuthHeaders, getCookie } from './Api';
+
+addAuthHeaders(getCookie('jwt'));
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,10 +1,10 @@
 const { getModelByName } = require('../middleware/db');
+const { adminAccessOnly } = require('../middleware/signup');
 
 const getRouter = (name) => {
   var router = require('express').Router();
   const objectModel = getModelByName(name);
 
-  /* GET all objects */
   router.get('/', async function (req, res, next) {
     objectModel.find({}, function (err, docs) {
       if (err) {
@@ -26,8 +26,7 @@ const getRouter = (name) => {
     })
   });
 
-  /* POST product */
-  router.post('/', async function (req, res, next) {
+  router.post('/', adminAccessOnly, async function (req, res, next) {
     const data = req.body;
     const object = new objectModel(data);
     object.save(function (err) {
@@ -40,7 +39,7 @@ const getRouter = (name) => {
     });
   });
 
-  router.delete('/:id', async function (req, res, next) {
+  router.delete('/:id', adminAccessOnly, async function (req, res, next) {
     const id = req.params.id;
     objectModel.deleteOne({ _id: id }, function (err) {
       if (err) {

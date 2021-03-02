@@ -2,14 +2,12 @@ import axios from 'axios';
 
 const API_URL = '/api'
 
-/**
- * 
- * @param {AxiosInstance} axios 
- */
+//TODO: Need to add Bearer authorization when sending any request
+
 export const addAuthHeaders = (token) => {
+  if (!token) return;
   axios.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${token}`;
-    console.log(document.cookie);
     return config;
   });
 }
@@ -53,6 +51,7 @@ export const signIn = async (user) => {
   const res = await axios.post(API_URL + '/user/login', user);
   if (res.data && res.data.accessToken) {
     setCookie("jwt", res.data.accessToken);
+    console.log(res.data.accessToken);
     addAuthHeaders(res.data.accessToken);
   }
 }
@@ -78,7 +77,7 @@ const setCookie = (cname, cvalue, exdays) => {
  * Get a cookie value by name. If cookie doesn't exist returns undefined.
  * @param {String} cname cookie name
  */
-const getCookie = (cname) => {
+export const getCookie = (cname) => {
   const name = cname + "=";
   const decodedCookie = decodeURIComponent(document.cookie);
   const cookieArray = decodedCookie.split(';');

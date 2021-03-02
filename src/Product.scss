@@ -1,25 +1,25 @@
 .product {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: solid black 2px;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid black 2px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
 }
 
 form.product > * {
-    width: 50%;
-    margin-top: 5px;
+  width: 50%;
+  margin-top: 5px;
 }
 
 .delete-button {
-    cursor: pointer;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    color: red;
-    font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  color: red;
+  font-weight: bold;
 }

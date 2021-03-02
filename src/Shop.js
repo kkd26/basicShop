@@ -47,7 +47,11 @@ class Shop extends Component {
   }
 
   async deleteProduct(id) {
-    await deleteProduct(id);
+    try {
+      await deleteProduct(id);
+    } catch {
+      alert("You are not admin");
+    }
     this.updateData();
   }
 
@@ -84,7 +88,7 @@ class Shop extends Component {
           }
         </div>
 
-        <LoginPanel style={{width: "200px"}}/>
+        <LoginPanel style={{ width: "200px" }} />
 
         <Admin
           allCategories={allCategories}

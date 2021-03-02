@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -11,7 +10,6 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js'
   },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -22,11 +20,7 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
+          "style-loader", "css-loader", "sass-loader",
         ]
       },
       {
@@ -48,7 +42,4 @@ module.exports = {
       favicon: 'public/my_favicon.ico'
     })
   ],
-  optimization: {
-    minimizer: [new UglifyJsPlugin()],
-  },
 }

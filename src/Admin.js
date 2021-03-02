@@ -41,7 +41,11 @@ class Admin extends Component {
     const type = target.getAttribute("data-type");
     const itemName = type === PRODUCT_TYPE ? "newProduct" : type === CATEGORY_TYPE ? "newCategory" : "newGroup";
     const handler = type === PRODUCT_TYPE ? addProduct : type === CATEGORY_TYPE ? addCategory : addGroup;
-    await handler(this.state[itemName]);
+    try {
+      await handler(this.state[itemName]);
+    } catch {
+      alert("You are not admin");
+    }
     this.setState({ [itemName]: {} }, () => this.updateData());
   }
 

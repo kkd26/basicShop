@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET REST API Documentation*/
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'REST API Documentation' });
 });

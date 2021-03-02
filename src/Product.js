@@ -1,23 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { FaTimes } from "react-icons/fa";
 import './Product.scss';
 
-class Product extends Component{
-    constructor(props){
-        super(props);
-    }
+class Product extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    render(){
-        const {id, name, price, categories} = this.props;
-        return (
-            <div className="product">
-                <FaTimes className="delete-button" onClick={() => this.props.deleteProduct(id)}/>  
-                <div className="name">{name}</div>
-                <div className="price">PRICE: {price ?? "NaN"}</div>
+  render() {
+    const { id, name, price, categories } = this.props;
+    return (
+      <div className="product">
+        <FaTimes className="delete-button" onClick={() => this.props.deleteProduct(id)}/>  
+        <div className="name">{name}</div>
+        <div className="price">PRICE: {price ?? "NaN"}</div>
                 [{categories.join(',')}]
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default Product;
